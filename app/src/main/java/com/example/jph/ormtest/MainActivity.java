@@ -65,4 +65,11 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         RuntimeExceptionDao<TestTable, Integer> testDao = getHelper().getSimpleDataDao();
         List<TestTable> list = testDao.queryForAll();
     }
+
+    public void Delete(View view) {
+        RuntimeExceptionDao<TestTable, Integer> testDao = getHelper().getSimpleDataDao();
+        List<TestTable> list = testDao.queryForAll();
+        testDao.delete(list.get(list.size()));
+        Toast.makeText(MainActivity.this, "Last entry removed", Toast.LENGTH_SHORT).show();
+    }
 }

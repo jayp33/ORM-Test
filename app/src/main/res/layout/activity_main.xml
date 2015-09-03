@@ -37,4 +37,13 @@
         android:layout_toEndOf="@+id/buttonWrite"
         android:onClick="Read" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:id="@+id/buttonDelete"
+        android:layout_alignTop="@+id/buttonRead"
+        android:layout_toEndOf="@+id/buttonRead"
+        android:onClick="Delete" />
+
 </RelativeLayout>

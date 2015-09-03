@@ -1,11 +1,18 @@
 package com.example.jph.ormtest;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
-public class MainActivity extends Activity {
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+
+import java.util.List;
+
+public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,5 +40,29 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private DatabaseHelper dbhelper = null;
+    public DatabaseHelper getHelper() {
+        if (dbhelper == null)
+            return new DatabaseHelper(this);
+        else
+            return dbhelper;
+    }
+
+    public void Write(View view) {
+        EditText et = (EditText) findViewById(R.id.editText);
+        if (et.getText().toString().equals("")) {
+            Toast.makeText(MainActivity.this, "No text to persist", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        RuntimeExceptionDao<TestTable, Integer> testDao = getHelper().getSimpleDataDao();
+        testDao.create(new TestTable(et.getText().toString()));
+        Toast.makeText(MainActivity.this, "Write complete", Toast.LENGTH_SHORT).show();
+    }
+
+    public void Read(View view) {
+        RuntimeExceptionDao<TestTable, Integer> testDao = getHelper().getSimpleDataDao();
+        List<TestTable> list = testDao.queryForAll();
     }
 }

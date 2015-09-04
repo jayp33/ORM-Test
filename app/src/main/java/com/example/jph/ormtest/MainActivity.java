@@ -1,5 +1,6 @@
 package com.example.jph.ormtest;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -62,8 +63,8 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     }
 
     public void Read(View view) {
-        RuntimeExceptionDao<TestTable, Integer> testDao = getHelper().getSimpleDataDao();
-        List<TestTable> list = testDao.queryForAll();
+        Intent i = new Intent(this, ListActivity.class);
+        startActivity(i);
     }
 
     public void Delete(View view) {

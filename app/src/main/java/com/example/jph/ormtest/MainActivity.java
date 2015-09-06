@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
@@ -63,7 +64,14 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     }
 
     public void Read(View view) {
+        RuntimeExceptionDao<TestTable, Integer> testDao = getHelper().getSimpleDataDao();
+        List<TestTable> records = testDao.queryForAll();
+        ArrayList<String> list = new ArrayList<String>();
+        for (TestTable record : records) {
+            list.add(record.getDescription());
+        }
         Intent i = new Intent(this, ListActivity.class);
+        i.putStringArrayListExtra("TestTable", list);
         startActivity(i);
     }
 
